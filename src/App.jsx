@@ -1020,7 +1020,7 @@ export default function Forma() {
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(33,33,33,0.96)", backdropFilter: "blur(12px)", zIndex: 100, flexWrap: "wrap", gap: "12px" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
           <span style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "28px", color: C.accent, letterSpacing: "2px", cursor: "pointer" }} onClick={() => { setView("browse"); setMatchResults(null); }}>FORMA</span>
-          <span style={{ fontSize: "12px", color: C.textMuted }}>discover your coach</span>
+          <span style={{ fontSize: "12px", color: C.textMuted }}>fitness & wellness coaching</span>
         </div>
         <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
           {view === "results" && <button onClick={() => setView("browse")} style={{ background: "none", border: `1px solid ${C.border}`, color: C.textSecondary, borderRadius: "10px", padding: "8px 14px", fontSize: "13px", cursor: "pointer" }}>← All Trainers</button>}
@@ -1036,14 +1036,46 @@ export default function Forma() {
         <MatchResults matches={matchResults} onBrowseAll={() => setView("browse")} onRetake={() => { setMatchResults(null); setShowQuiz(true); }} onViewProfile={setProfileTrainer} />
       ) : (
         <>
-          <div style={{ padding: "48px 32px 32px", textAlign: "center" }}>
-            <h1 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "clamp(44px, 7vw, 76px)", color: C.textPrimary, letterSpacing: "3px", lineHeight: 1, margin: "0 0 12px" }}>
-              EVERY ONLINE TRAINER.<br /><span style={{ color: C.accent }}>ONE PLACE.</span>
+          <section style={{ padding: "64px 24px 50px", textAlign: "center", maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ color: C.accent, fontWeight: 800, letterSpacing: "1.8px", fontSize: "12px", marginBottom: "18px" }}>FITNESS & WELLNESS COACHING MARKETPLACE</div>
+            <h1 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "clamp(46px, 7vw, 84px)", color: C.textPrimary, letterSpacing: "2px", lineHeight: 0.98, margin: "0 0 22px" }}>
+              THE HOME OF<br /><span style={{ color: C.accent }}>FITNESS & WELLNESS COACHING.</span>
             </h1>
-            <p style={{ color: C.textMuted, fontSize: "15px", maxWidth: "420px", margin: "0 auto 24px" }}>Browse {TRAINERS.length} coaches across Instagram, YouTube, and TikTok.</p>
-            <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#000", border: "none", borderRadius: "12px", padding: "14px 28px", fontSize: "15px", fontWeight: 800, cursor: "pointer" }}>✦ Take the Matching Quiz</button>
-          </div>
-          <div style={{ padding: "0 32px 24px", display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-end", borderBottom: `1px solid ${C.border}` }}>
+            <p style={{ color: C.textSecondary, fontSize: "clamp(15px, 2vw, 18px)", maxWidth: "650px", lineHeight: 1.6, margin: "0 auto 28px" }}>Discover coaches, compare programs and pricing, and find the right fit for your goals—all in one place.</p>
+            <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "12px" }}>
+              <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#000", border: "1px solid transparent", borderRadius: "12px", padding: "15px 24px", fontSize: "15px", fontWeight: 800, cursor: "pointer", minWidth: "210px" }}>✦ Find My Match</button>
+              <button onClick={() => document.getElementById("coach-marketplace")?.scrollIntoView({ behavior: "smooth" })} style={{ background: C.card, color: C.textPrimary, border: "1px solid #777", borderRadius: "12px", padding: "15px 24px", fontSize: "15px", fontWeight: 800, cursor: "pointer", minWidth: "210px" }}>⌕ Explore Coaches</button>
+            </div>
+            <p style={{ color: C.textMuted, fontSize: "12px", marginTop: "16px" }}>Personalized matching or explore at your own pace.</p>
+          </section>
+          <section style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 24px 48px" }}>
+            <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "12px", marginBottom: "20px" }}>
+              <div>
+                <h2 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "32px", margin: 0, letterSpacing: "1px" }}>MEET YOUR NEXT COACH</h2>
+                <p style={{ color: C.textMuted, fontSize: "13px", margin: "5px 0 0" }}>Explore coaches across fitness and wellness specialties.</p>
+              </div>
+              <button onClick={() => document.getElementById("coach-marketplace")?.scrollIntoView({ behavior: "smooth" })} style={{ background: "none", border: "none", color: C.accent, fontSize: "13px", fontWeight: 700, cursor: "pointer" }}>View All Coaches →</button>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px" }}>
+              {TRAINERS.slice(0, 3).map(t => (
+                <button key={t.id} onClick={() => setProfileTrainer(t)} style={{ textAlign: "left", padding: 0, background: C.card, border: `1px solid ${C.borderLight}`, borderRadius: "16px", overflow: "hidden", color: C.textPrimary, cursor: "pointer", fontFamily: "inherit" }}>
+                  <img src={t.img} alt={t.name} style={{ width: "100%", height: "210px", objectFit: "cover", display: "block" }} />
+                  <div style={{ padding: "16px", display: "grid", gap: "9px" }}>
+                    <strong style={{ fontSize: "18px" }}>{t.name}</strong>
+                    <span style={{ color: C.textSecondary, fontSize: "13px" }}>{t.specialty}</span>
+                    <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                      <span style={{ background: C.surface, color: C.textSecondary, padding: "5px 9px", borderRadius: "14px", fontSize: "11px", textTransform: "capitalize" }}>{t.coachingMode === "both" ? "Online & In-person" : t.coachingMode}</span>
+                      {t.tags.slice(0, 1).map(tag => <span key={tag} style={{ background: C.surface, color: C.textSecondary, padding: "5px 9px", borderRadius: "14px", fontSize: "11px" }}>{tag}</span>)}
+                    </div>
+                    <span style={{ color: C.accent, fontSize: "13px", fontWeight: 700 }}>{t.priceRange}</span>
+                    <span style={{ paddingTop: "10px", borderTop: `1px solid ${C.border}`, fontSize: "12px", fontWeight: 700 }}>View Profile ↗</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+            <p style={{ color: C.textMuted, fontSize: "11px", textAlign: "center", marginTop: "14px" }}>Illustrative demo coach profiles; not verified listings or reviews.</p>
+          </section>
+          <div id="coach-marketplace" style={{ padding: "24px 32px", display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-end", borderBottom: `1px solid ${C.border}`, scrollMarginTop: "90px" }}>
             <div>
               <div style={{ fontSize: "10px", color: C.textMuted, fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "8px" }}>Specialty</div>
               <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>{NICHES.map(n => <FilterBtn key={n} label={n} active={niche === n} onClick={() => setNiche(n)} />)}</div>
