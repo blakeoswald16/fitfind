@@ -992,7 +992,7 @@ function MatchResults({ matches, onBrowseAll, onRetake, onViewProfile }) {
   );
 }
 
-export default function FitFind() {
+export default function Forma() {
   const [search, setSearch] = useState("");
   const [niche, setNiche] = useState("All");
   const [price, setPrice] = useState("All");
@@ -1019,7 +1019,7 @@ export default function FitFind() {
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(33,33,33,0.96)", backdropFilter: "blur(12px)", zIndex: 100, flexWrap: "wrap", gap: "12px" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-          <span style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "28px", color: C.accent, letterSpacing: "2px", cursor: "pointer" }} onClick={() => { setView("browse"); setMatchResults(null); }}>FITFIND</span>
+          <span style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "28px", color: C.accent, letterSpacing: "2px", cursor: "pointer" }} onClick={() => { setView("browse"); setMatchResults(null); }}>FORMA</span>
           <span style={{ fontSize: "12px", color: C.textMuted }}>discover your coach</span>
         </div>
         <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>

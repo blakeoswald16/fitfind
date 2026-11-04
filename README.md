@@ -1,4 +1,4 @@
-# FitFind
+# Forma
 
 A fitness coach discovery marketplace built
 with React and JavaScript.
@@ -9,7 +9,7 @@ pricing, specialties, coaching styles, and
 qualifications are scattered across platforms.
 
 ## The Solution
-FitFind is a marketplace prototype that
+Forma is a marketplace prototype that
 brings trainer profiles, specialties, pricing,
 and coaching options into one experience.
 
