@@ -960,7 +960,7 @@ Return ONLY valid JSON, no markdown:
               </button>;
             })}
           </div>
-          {error && <p style={{ color: "#ff7070", fontSize: "13px", marginBottom: "14px" }}>{error}</p>}
+          {error && <p style={{ color: "#B42318", fontSize: "13px", marginBottom: "14px" }}>{error}</p>}
           <div style={{ display: "flex", gap: "10px" }}>
             {step > 0 && <button onClick={() => setStep(s => s - 1)} style={{ flex: 1, background: C.card, color: C.textSecondary, border: `1px solid ${C.border}`, borderRadius: "12px", padding: "14px", cursor: "pointer", fontSize: "14px", fontWeight: 600 }}>← Back</button>}
             <button onClick={isLast ? handleFinish : () => setStep(s => s + 1)} disabled={selected.length === 0 || loading} style={{ flex: 2, background: selected.length > 0 && !loading ? C.accent : C.card, color: selected.length > 0 && !loading ? "#FFFFFF" : C.textMuted, border: "none", borderRadius: "12px", padding: "14px", cursor: selected.length > 0 && !loading ? "pointer" : "default", fontSize: "14px", fontWeight: 800, transition: "all 0.15s" }}>
