@@ -1020,7 +1020,7 @@ export default function Forma() {
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(33,33,33,0.96)", backdropFilter: "blur(12px)", zIndex: 100, flexWrap: "wrap", gap: "12px" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
           <span style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "28px", color: C.accent, letterSpacing: "2px", cursor: "pointer" }} onClick={() => { setView("browse"); setMatchResults(null); }}>FORMA</span>
-          <span style={{ fontSize: "12px", color: C.textMuted }}>discover your coach</span>
+          <span style={{ fontSize: "12px", color: C.textMuted }}>fitness & wellness coaching</span>
         </div>
         <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
           {view === "results" && <button onClick={() => setView("browse")} style={{ background: "none", border: `1px solid ${C.border}`, color: C.textSecondary, borderRadius: "10px", padding: "8px 14px", fontSize: "13px", cursor: "pointer" }}>← All Trainers</button>}
@@ -1038,10 +1038,10 @@ export default function Forma() {
         <>
           <div style={{ padding: "48px 32px 32px", textAlign: "center" }}>
             <h1 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "clamp(44px, 7vw, 76px)", color: C.textPrimary, letterSpacing: "3px", lineHeight: 1, margin: "0 0 12px" }}>
-              EVERY ONLINE TRAINER.<br /><span style={{ color: C.accent }}>ONE PLACE.</span>
+              FIND YOUR FITNESS &amp;<br /><span style={{ color: C.accent }}>WELLNESS COACH.</span>
             </h1>
-            <p style={{ color: C.textMuted, fontSize: "15px", maxWidth: "420px", margin: "0 auto 24px" }}>Browse {TRAINERS.length} coaches across Instagram, YouTube, and TikTok.</p>
-            <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#000", border: "none", borderRadius: "12px", padding: "14px 28px", fontSize: "15px", fontWeight: 800, cursor: "pointer" }}>✦ Take the Matching Quiz</button>
+            <p style={{ color: C.textMuted, fontSize: "15px", maxWidth: "420px", margin: "0 auto 24px" }}>Discover fitness and wellness coaches in one place. Compare specialties, coaching styles, and pricing to find the right coach for your goals.</p>
+            <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#000", border: "none", borderRadius: "12px", padding: "14px 28px", fontSize: "15px", fontWeight: 800, cursor: "pointer" }}>✦ Find My Coach</button>
           </div>
           <div style={{ padding: "0 32px 24px", display: "flex", gap: "24px", flexWrap: "wrap", alignItems: "flex-end", borderBottom: `1px solid ${C.border}` }}>
             <div>
