@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
 
 const C = {
-  bg: "#212121", surface: "#2c2c2c", card: "#303030", border: "#3d3d3d",
-  borderLight: "#484848", textPrimary: "#f0f0f0", textSecondary: "#a8a8a8",
-  textMuted: "#6b6b6b", accent: "#C8FF00", accentDim: "rgba(200,255,0,0.12)",
-  accentBorder: "rgba(200,255,0,0.35)",
+  bg: "#F8F7F4", surface: "#F1F2ED", card: "#FFFFFF", border: "#E3E5DF",
+  borderLight: "#C9CEC7", textPrimary: "#242824", textSecondary: "#4D5750",
+  textMuted: "#67716A", accent: "#586E60", accentDim: "rgba(88,110,96,0.10)",
+  accentBorder: "rgba(88,110,96,0.32)",
 };
 
 const TRAINERS = [
@@ -730,7 +730,7 @@ function StarRating({ rating, size = 12 }) {
 
 function PlatformBadge({ platform, count }) {
   const p = PLATFORM_ICONS[platform];
-  return <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: "20px", padding: "3px 8px", fontSize: "11px", color: C.textSecondary }}><span style={{ color: p.color, fontWeight: 700, fontSize: "10px" }}>{p.label}</span>{count}</span>;
+  return <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: "20px", padding: "3px 8px", fontSize: "11px", color: C.textSecondary }}><span style={{ color: p.color, fontWeight: 700, fontSize: "10px" }}>{p.label}</span>{count}</span>;
 }
 
 function TrainerCard({ trainer, onClick, matchReason }) {
@@ -741,11 +741,11 @@ function TrainerCard({ trainer, onClick, matchReason }) {
       <div style={{ position: "relative", height: "200px", overflow: "hidden", background: C.surface }}>
         <img src={trainer.img} alt={trainer.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => { e.target.style.display = "none"; }} />
         <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${C.card} 0%, transparent 55%)` }} />
-        <div style={{ position: "absolute", top: "12px", right: "12px", background: C.accent, color: "#000", fontWeight: 800, fontSize: "12px", padding: "3px 10px", borderRadius: "20px" }}>{trainer.price}</div>
+        <div style={{ position: "absolute", top: "12px", right: "12px", background: C.accent, color: "#FFFFFF", fontWeight: 800, fontSize: "12px", padding: "3px 10px", borderRadius: "20px" }}>{trainer.price}</div>
         {matchReason && <div style={{ position: "absolute", top: "12px", left: "12px", background: C.accentDim, border: `1px solid ${C.accentBorder}`, color: C.accent, fontSize: "10px", fontWeight: 700, padding: "3px 8px", borderRadius: "20px" }}>✦ MATCHED</div>}
       </div>
       <div style={{ padding: "16px" }}>
-        <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "22px", color: C.textPrimary, letterSpacing: "1px", lineHeight: 1 }}>{trainer.name}</div>
+        <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "22px", color: C.textPrimary, letterSpacing: "1px", lineHeight: 1 }}>{trainer.name}</div>
         <div style={{ fontSize: "12px", color: C.textMuted, marginBottom: "6px" }}>{trainer.handle} · {trainer.location}</div>
         <div style={{ fontSize: "12px", fontWeight: 600, color: C.accent, marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.5px" }}>{trainer.specialty}</div>
         {matchReason ? <div style={{ fontSize: "12px", color: C.textSecondary, lineHeight: 1.55, marginBottom: "10px", padding: "8px 10px", background: C.accentDim, borderRadius: "8px", border: `1px solid ${C.accentBorder}` }}>{matchReason}</div>
@@ -769,19 +769,19 @@ function ProfilePage({ trainer, onBack }) {
     <div style={{ minHeight: "100vh", background: C.bg }}>
       <div style={{ position: "relative", height: "320px", overflow: "hidden", background: C.surface }}>
         <img src={trainer.img} alt={trainer.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => e.target.style.display = "none"} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #212121 0%, rgba(33,33,33,0.4) 60%, transparent 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #F8F7F4 0%, rgba(248,247,244,0.15) 60%, transparent 100%)" }} />
         <button onClick={onBack} style={{ position: "absolute", top: "20px", left: "24px", background: "rgba(0,0,0,0.5)", border: `1px solid ${C.border}`, color: C.textPrimary, borderRadius: "10px", padding: "8px 16px", cursor: "pointer", fontSize: "13px", fontWeight: 600, backdropFilter: "blur(8px)" }}>← Back</button>
       </div>
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px 60px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "28px", flexWrap: "wrap", gap: "16px" }}>
           <div>
-            <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "clamp(36px, 5vw, 52px)", color: C.textPrimary, letterSpacing: "1px", lineHeight: 1 }}>{trainer.name}</div>
+            <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "clamp(36px, 5vw, 52px)", color: C.textPrimary, letterSpacing: "1px", lineHeight: 1 }}>{trainer.name}</div>
             <div style={{ fontSize: "14px", color: C.textMuted, marginBottom: "6px" }}>{trainer.handle} · {trainer.location}</div>
             <div style={{ fontSize: "14px", fontWeight: 700, color: C.accent, textTransform: "uppercase", letterSpacing: "1px", marginBottom: "10px" }}>{trainer.specialty}</div>
             <div style={{ fontStyle: "italic", fontSize: "15px", color: C.textSecondary }}>"{trainer.tagline}"</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ background: C.accent, color: "#000", fontWeight: 800, fontSize: "18px", padding: "8px 20px", borderRadius: "12px", marginBottom: "8px" }}>{trainer.priceRange}</div>
+            <div style={{ background: C.accent, color: "#FFFFFF", fontWeight: 800, fontSize: "18px", padding: "8px 20px", borderRadius: "12px", marginBottom: "8px" }}>{trainer.priceRange}</div>
             <div style={{ fontSize: "12px", color: C.textMuted }}>per month</div>
             <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "8px", justifyContent: "flex-end" }}>
               <StarRating rating={trainer.rating} size={14} />
@@ -800,7 +800,7 @@ function ProfilePage({ trainer, onBack }) {
         <div style={{ display: "flex", gap: "10px", marginBottom: "28px", flexWrap: "wrap" }}>
           {Object.entries(trainer.platforms).map(([p, count]) => {
             const icon = PLATFORM_ICONS[p];
-            return <div key={p} style={{ background: C.card, borderRadius: "12px", padding: "10px 16px", border: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "8px" }}><span style={{ color: icon.color, fontWeight: 800, fontSize: "12px" }}>{icon.label}</span><span style={{ color: C.textPrimary, fontWeight: 700, fontFamily: "'Bebas Neue', cursive", fontSize: "18px", letterSpacing: "1px" }}>{count}</span><span style={{ color: C.textMuted, fontSize: "11px" }}>followers</span></div>;
+            return <div key={p} style={{ background: C.card, borderRadius: "12px", padding: "10px 16px", border: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "8px" }}><span style={{ color: icon.color, fontWeight: 800, fontSize: "12px" }}>{icon.label}</span><span style={{ color: C.textPrimary, fontWeight: 700, fontFamily: "'Manrope', sans-serif", fontSize: "18px", letterSpacing: "1px" }}>{count}</span><span style={{ color: C.textMuted, fontSize: "11px" }}>followers</span></div>;
           })}
         </div>
         <div style={{ display: "flex", gap: "4px", marginBottom: "28px", background: C.surface, borderRadius: "12px", padding: "4px" }}>
@@ -809,17 +809,17 @@ function ProfilePage({ trainer, onBack }) {
         {activeTab === "about" && (
           <div style={{ display: "grid", gap: "20px" }}>
             <div style={{ background: C.card, borderRadius: "16px", padding: "24px", border: `1px solid ${C.border}` }}>
-              <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "20px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "12px" }}>About</div>
+              <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "20px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "12px" }}>About</div>
               <p style={{ fontSize: "15px", color: C.textSecondary, lineHeight: 1.75 }}>{trainer.bio}</p>
             </div>
             <div style={{ background: C.card, borderRadius: "16px", padding: "24px", border: `1px solid ${C.border}` }}>
-              <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "20px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "16px" }}>Certifications</div>
+              <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "20px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "16px" }}>Certifications</div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
                 {trainer.certifications.map(c => <span key={c} style={{ background: C.accentDim, color: C.accent, border: `1px solid ${C.accentBorder}`, borderRadius: "20px", padding: "6px 14px", fontSize: "13px" }}>{c}</span>)}
               </div>
             </div>
             <div style={{ background: C.card, borderRadius: "16px", padding: "24px", border: `1px solid ${C.border}` }}>
-              <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "20px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "16px" }}>What's Included</div>
+              <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "20px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "16px" }}>What's Included</div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "10px" }}>
                 {trainer.coachingIncludes.map(item => <div key={item} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "14px", color: C.textSecondary }}><span style={{ color: C.accent, fontSize: "16px", flexShrink: 0 }}>✓</span>{item}</div>)}
               </div>
@@ -835,12 +835,12 @@ function ProfilePage({ trainer, onBack }) {
               <div key={tier.tier} style={{ background: C.card, borderRadius: "16px", padding: "24px", border: `1px solid ${i === 1 ? C.accentBorder : C.border}`, position: "relative", overflow: "hidden" }}>
                 {i === 1 && <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "3px", background: C.accent }} />}
                 {i === 1 && <div style={{ fontSize: "10px", color: C.accent, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", marginBottom: "8px" }}>Most Popular</div>}
-                <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "24px", color: C.textPrimary, letterSpacing: "1px" }}>{tier.tier}</div>
+                <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "24px", color: C.textPrimary, letterSpacing: "1px" }}>{tier.tier}</div>
                 <div style={{ fontSize: "28px", fontWeight: 800, color: C.accent, margin: "8px 0 16px" }}>{tier.price}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                   {tier.includes.map(item => <div key={item} style={{ display: "flex", gap: "8px", fontSize: "13px", color: C.textSecondary, alignItems: "flex-start" }}><span style={{ color: C.accent, flexShrink: 0 }}>✓</span>{item}</div>)}
                 </div>
-                <button style={{ width: "100%", marginTop: "20px", background: i === 1 ? C.accent : "transparent", color: i === 1 ? "#000" : C.textSecondary, border: `1px solid ${i === 1 ? C.accent : C.border}`, borderRadius: "10px", padding: "12px", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}>Get Started</button>
+                <button style={{ width: "100%", marginTop: "20px", background: i === 1 ? C.accent : "transparent", color: i === 1 ? "#FFFFFF" : C.textSecondary, border: `1px solid ${i === 1 ? C.accent : C.border}`, borderRadius: "10px", padding: "12px", fontWeight: 700, fontSize: "14px", cursor: "pointer" }}>Get Started</button>
               </div>
             ))}
           </div>
@@ -849,7 +849,7 @@ function ProfilePage({ trainer, onBack }) {
           <div style={{ display: "grid", gap: "16px" }}>
             <div style={{ background: C.card, borderRadius: "16px", padding: "20px", border: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "24px", flexWrap: "wrap" }}>
               <div style={{ textAlign: "center" }}>
-                <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "56px", color: C.accent, letterSpacing: "2px", lineHeight: 1 }}>{trainer.rating}</div>
+                <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "56px", color: C.accent, letterSpacing: "2px", lineHeight: 1 }}>{trainer.rating}</div>
                 <StarRating rating={trainer.rating} size={16} />
                 <div style={{ fontSize: "13px", color: C.textMuted, marginTop: "4px" }}>{trainer.reviews} reviews</div>
               </div>
@@ -873,7 +873,7 @@ function ProfilePage({ trainer, onBack }) {
             {trainer.successStories.map((s, i) => (
               <div key={i} style={{ background: C.card, borderRadius: "16px", padding: "24px", border: `1px solid ${C.border}` }}>
                 <div style={{ display: "flex", gap: "16px", alignItems: "flex-start", flexWrap: "wrap" }}>
-                  <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: C.accentDim, border: `2px solid ${C.accentBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Bebas Neue', cursive", fontSize: "20px", color: C.accent, flexShrink: 0 }}>{s.name[0]}</div>
+                  <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: C.accentDim, border: `2px solid ${C.accentBorder}`, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Manrope', sans-serif", fontSize: "20px", color: C.accent, flexShrink: 0 }}>{s.name[0]}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 700, color: C.textPrimary, fontSize: "15px", marginBottom: "4px" }}>{s.name}</div>
                     <div style={{ display: "inline-block", background: C.accentDim, color: C.accent, border: `1px solid ${C.accentBorder}`, borderRadius: "20px", padding: "3px 12px", fontSize: "12px", fontWeight: 600, marginBottom: "12px" }}>✦ {s.result}</div>
@@ -885,7 +885,7 @@ function ProfilePage({ trainer, onBack }) {
           </div>
         )}
         <div style={{ marginTop: "32px", background: C.accentDim, border: `1px solid ${C.accentBorder}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
-          <div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "28px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "8px" }}>Ready to Start?</div>
+          <div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "28px", color: C.textPrimary, letterSpacing: "1px", marginBottom: "8px" }}>Ready to Start?</div>
           <p style={{ fontSize: "14px", color: C.textSecondary, marginBottom: "20px" }}>Reach out to {trainer.name.split(" ")[0]} directly through their social platforms.</p>
           <div style={{ display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap" }}>
             {Object.entries(trainer.platforms).map(([p]) => {
@@ -941,7 +941,7 @@ Return ONLY valid JSON, no markdown:
   }
 
   return (
-    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 200, padding: "20px" }}>
+    <div style={{ position: "fixed", inset: 0, background: "rgba(36,40,36,0.45)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 200, padding: "20px" }}>
       <div style={{ background: C.surface, borderRadius: "24px", border: `1px solid ${C.border}`, maxWidth: "560px", width: "100%", overflow: "hidden" }}>
         <div style={{ height: "3px", background: C.card }}><div style={{ height: "100%", width: `${(step / QUIZ_STEPS.length) * 100}%`, background: C.accent, transition: "width 0.4s ease" }} /></div>
         <div style={{ padding: "32px" }}>
@@ -950,20 +950,20 @@ Return ONLY valid JSON, no markdown:
             <button onClick={onClose} style={{ background: "none", border: "none", color: C.textMuted, cursor: "pointer", fontSize: "20px" }}>×</button>
           </div>
           <div style={{ fontSize: "32px", marginBottom: "10px" }}>{current.emoji}</div>
-          <h2 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "26px", color: C.textPrimary, letterSpacing: "1px", lineHeight: 1.2, marginBottom: current.multi ? "4px" : "18px" }}>{current.question}</h2>
+          <h2 style={{ fontFamily: "'Manrope', sans-serif", fontSize: "26px", color: C.textPrimary, letterSpacing: "1px", lineHeight: 1.2, marginBottom: current.multi ? "4px" : "18px" }}>{current.question}</h2>
           {current.multi && <p style={{ fontSize: "12px", color: C.textMuted, marginBottom: "14px" }}>Select all that apply</p>}
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginBottom: "24px" }}>
             {current.options.map(opt => {
               const isSel = selected.includes(opt);
               return <button key={opt} onClick={() => toggleOption(opt)} style={{ background: isSel ? C.accentDim : C.card, border: `1px solid ${isSel ? C.accent : C.border}`, borderRadius: "12px", padding: "13px 16px", color: isSel ? C.accent : C.textSecondary, cursor: "pointer", textAlign: "left", fontSize: "14px", fontWeight: isSel ? 600 : 400, transition: "all 0.15s", display: "flex", alignItems: "center", gap: "10px" }}>
-                <span style={{ width: "18px", height: "18px", border: `2px solid ${isSel ? C.accent : C.borderLight}`, borderRadius: current.multi ? "4px" : "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, background: isSel ? C.accent : "transparent" }}>{isSel && <span style={{ color: "#000", fontSize: "11px", fontWeight: 900 }}>✓</span>}</span>{opt}
+                <span style={{ width: "18px", height: "18px", border: `2px solid ${isSel ? C.accent : C.borderLight}`, borderRadius: current.multi ? "4px" : "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, background: isSel ? C.accent : "transparent" }}>{isSel && <span style={{ color: "#FFFFFF", fontSize: "11px", fontWeight: 900 }}>✓</span>}</span>{opt}
               </button>;
             })}
           </div>
-          {error && <p style={{ color: "#ff7070", fontSize: "13px", marginBottom: "14px" }}>{error}</p>}
+          {error && <p style={{ color: "#B42318", fontSize: "13px", marginBottom: "14px" }}>{error}</p>}
           <div style={{ display: "flex", gap: "10px" }}>
             {step > 0 && <button onClick={() => setStep(s => s - 1)} style={{ flex: 1, background: C.card, color: C.textSecondary, border: `1px solid ${C.border}`, borderRadius: "12px", padding: "14px", cursor: "pointer", fontSize: "14px", fontWeight: 600 }}>← Back</button>}
-            <button onClick={isLast ? handleFinish : () => setStep(s => s + 1)} disabled={selected.length === 0 || loading} style={{ flex: 2, background: selected.length > 0 && !loading ? C.accent : C.card, color: selected.length > 0 && !loading ? "#000" : C.textMuted, border: "none", borderRadius: "12px", padding: "14px", cursor: selected.length > 0 && !loading ? "pointer" : "default", fontSize: "14px", fontWeight: 800, transition: "all 0.15s" }}>
+            <button onClick={isLast ? handleFinish : () => setStep(s => s + 1)} disabled={selected.length === 0 || loading} style={{ flex: 2, background: selected.length > 0 && !loading ? C.accent : C.card, color: selected.length > 0 && !loading ? "#FFFFFF" : C.textMuted, border: "none", borderRadius: "12px", padding: "14px", cursor: selected.length > 0 && !loading ? "pointer" : "default", fontSize: "14px", fontWeight: 800, transition: "all 0.15s" }}>
               {loading ? "Finding your matches..." : isLast ? "Find My Matches ✦" : "Continue →"}
             </button>
           </div>
@@ -978,7 +978,7 @@ function MatchResults({ matches, onBrowseAll, onRetake, onViewProfile }) {
     <div>
       <div style={{ textAlign: "center", padding: "40px 32px 28px" }}>
         <div style={{ fontSize: "40px", marginBottom: "12px" }}>✦</div>
-        <h2 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "clamp(36px, 6vw, 52px)", color: C.accent, letterSpacing: "2px", margin: "0 0 8px" }}>YOUR MATCHES</h2>
+        <h2 style={{ fontFamily: "'Manrope', sans-serif", fontSize: "clamp(36px, 6vw, 52px)", color: C.accent, letterSpacing: "2px", margin: "0 0 8px" }}>YOUR MATCHES</h2>
         <p style={{ color: C.textMuted, fontSize: "14px", maxWidth: "380px", margin: "0 auto 12px" }}>Based on your goals, these coaches are your best fit.</p>
         <button onClick={onRetake} style={{ background: "none", border: `1px solid ${C.border}`, color: C.textMuted, borderRadius: "20px", padding: "6px 16px", fontSize: "12px", cursor: "pointer" }}>Retake Quiz</button>
       </div>
@@ -1009,17 +1009,17 @@ export default function Forma() {
   }), [search, niche, price, platform]);
 
   const FilterBtn = ({ label, active, onClick }) => (
-    <button onClick={onClick} style={{ background: active ? C.accent : "transparent", color: active ? "#000" : C.textMuted, border: `1px solid ${active ? C.accent : C.border}`, borderRadius: "20px", padding: "6px 14px", fontSize: "12px", cursor: "pointer", fontWeight: active ? 700 : 400, transition: "all 0.15s", textTransform: "capitalize", whiteSpace: "nowrap" }}>{label}</button>
+    <button onClick={onClick} style={{ background: active ? C.accent : "transparent", color: active ? "#FFFFFF" : C.textMuted, border: `1px solid ${active ? C.accent : C.border}`, borderRadius: "20px", padding: "6px 14px", fontSize: "12px", cursor: "pointer", fontWeight: active ? 700 : 400, transition: "all 0.15s", textTransform: "capitalize", whiteSpace: "nowrap" }}>{label}</button>
   );
 
   if (profileTrainer) return <ProfilePage trainer={profileTrainer} onBack={() => setProfileTrainer(null)} />;
 
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "'DM Sans', sans-serif", color: C.textPrimary }}>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      <div style={{ borderBottom: `1px solid ${C.border}`, padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(33,33,33,0.96)", backdropFilter: "blur(12px)", zIndex: 100, flexWrap: "wrap", gap: "12px" }}>
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "'Manrope', sans-serif", color: C.textPrimary }}>
+      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+      <div style={{ borderBottom: `1px solid ${C.border}`, padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, background: "rgba(248,247,244,0.96)", backdropFilter: "blur(12px)", zIndex: 100, flexWrap: "wrap", gap: "12px" }}>
         <div style={{ display: "flex", alignItems: "baseline", gap: "8px" }}>
-          <span style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "28px", color: C.accent, letterSpacing: "2px", cursor: "pointer" }} onClick={() => { setView("browse"); setMatchResults(null); }}>FORMA</span>
+          <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: "28px", fontWeight: 800, color: C.textPrimary, letterSpacing: "-1.2px", cursor: "pointer" }} onClick={() => { setView("browse"); setMatchResults(null); }}>forma.</span>
           <span style={{ fontSize: "12px", color: C.textMuted }}>fitness & wellness coaching</span>
         </div>
         <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
@@ -1028,7 +1028,7 @@ export default function Forma() {
             <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search trainers..." style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: "10px", padding: "10px 16px 10px 40px", color: C.textPrimary, fontSize: "13px", width: "220px", outline: "none" }} />
             <span style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", fontSize: "14px", color: C.textMuted }}>🔍</span>
           </div>
-          <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#000", border: "none", borderRadius: "10px", padding: "10px 18px", fontSize: "13px", fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" }}>✦ Find My Match</button>
+          <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#FFFFFF", border: "none", borderRadius: "10px", padding: "10px 18px", fontSize: "13px", fontWeight: 800, cursor: "pointer", whiteSpace: "nowrap" }}>✦ Find My Match</button>
         </div>
       </div>
 
@@ -1036,22 +1036,22 @@ export default function Forma() {
         <MatchResults matches={matchResults} onBrowseAll={() => setView("browse")} onRetake={() => { setMatchResults(null); setShowQuiz(true); }} onViewProfile={setProfileTrainer} />
       ) : (
         <>
-          <section style={{ padding: "64px 24px 50px", textAlign: "center", maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ color: C.accent, fontWeight: 800, letterSpacing: "1.8px", fontSize: "12px", marginBottom: "18px" }}>FITNESS & WELLNESS COACHING MARKETPLACE</div>
-            <h1 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "clamp(46px, 7vw, 84px)", color: C.textPrimary, letterSpacing: "2px", lineHeight: 0.98, margin: "0 0 22px" }}>
-              THE HOME OF<br /><span style={{ color: C.accent }}>FITNESS & WELLNESS COACHING.</span>
+          <section style={{ padding: "76px 24px 54px", textAlign: "center", maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ display: "inline-block", color: C.accent, background: C.accentDim, borderRadius: "999px", padding: "8px 14px", fontWeight: 600, letterSpacing: "0", fontSize: "12px", marginBottom: "20px" }}>Fitness & wellness coaching marketplace</div>
+            <h1 style={{ fontFamily: "'Manrope', sans-serif", fontSize: "clamp(34px, 5.3vw, 60px)", fontWeight: 600, color: C.textPrimary, letterSpacing: "-2px", lineHeight: 1.05, margin: "0 0 22px" }}>
+              The home of<br /><span style={{ color: C.accent }}>fitness & wellness coaching.</span>
             </h1>
             <p style={{ color: C.textSecondary, fontSize: "clamp(15px, 2vw, 18px)", maxWidth: "650px", lineHeight: 1.6, margin: "0 auto 28px" }}>Discover coaches, compare programs and pricing, and find the right fit for your goals—all in one place.</p>
             <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "12px" }}>
-              <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#000", border: "1px solid transparent", borderRadius: "12px", padding: "15px 24px", fontSize: "15px", fontWeight: 800, cursor: "pointer", minWidth: "210px" }}>✦ Find My Match</button>
-              <button onClick={() => document.getElementById("coach-marketplace")?.scrollIntoView({ behavior: "smooth" })} style={{ background: C.card, color: C.textPrimary, border: "1px solid #777", borderRadius: "12px", padding: "15px 24px", fontSize: "15px", fontWeight: 800, cursor: "pointer", minWidth: "210px" }}>⌕ Explore Coaches</button>
+              <button onClick={() => setShowQuiz(true)} style={{ background: C.accent, color: "#FFFFFF", border: "1px solid transparent", borderRadius: "12px", padding: "15px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer", minWidth: "210px" }}>✦ Find My Match</button>
+              <button onClick={() => document.getElementById("coach-marketplace")?.scrollIntoView({ behavior: "smooth" })} style={{ background: C.card, color: C.textPrimary, border: `1px solid ${C.borderLight}`, borderRadius: "12px", padding: "15px 24px", fontSize: "15px", fontWeight: 600, cursor: "pointer", minWidth: "210px" }}>⌕ Explore Coaches</button>
             </div>
             <p style={{ color: C.textMuted, fontSize: "12px", marginTop: "16px" }}>Personalized matching or explore at your own pace.</p>
           </section>
           <section style={{ maxWidth: "1250px", margin: "0 auto", padding: "0 24px 48px" }}>
             <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "28px", display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "12px", marginBottom: "20px" }}>
               <div>
-                <h2 style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "32px", margin: 0, letterSpacing: "1px" }}>MEET YOUR NEXT COACH</h2>
+                <h2 style={{ fontFamily: "'Manrope', sans-serif", fontSize: "30px", fontWeight: 600, margin: 0, letterSpacing: "-0.6px" }}>Meet your next coach</h2>
                 <p style={{ color: C.textMuted, fontSize: "13px", margin: "5px 0 0" }}>Explore coaches across fitness and wellness specialties.</p>
               </div>
               <button onClick={() => document.getElementById("coach-marketplace")?.scrollIntoView({ behavior: "smooth" })} style={{ background: "none", border: "none", color: C.accent, fontSize: "13px", fontWeight: 700, cursor: "pointer" }}>View All Coaches →</button>
@@ -1092,7 +1092,7 @@ export default function Forma() {
           <div style={{ padding: "16px 32px 4px", fontSize: "13px", color: C.textMuted }}>{filtered.length} trainer{filtered.length !== 1 ? "s" : ""} found</div>
           <div style={{ padding: "16px 32px 60px", display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "20px" }}>
             {filtered.length === 0
-              ? <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px", color: C.textMuted }}><div style={{ fontSize: "48px", marginBottom: "12px" }}>🏋️</div><div style={{ fontFamily: "'Bebas Neue', cursive", fontSize: "24px" }}>NO TRAINERS FOUND</div></div>
+              ? <div style={{ gridColumn: "1/-1", textAlign: "center", padding: "60px", color: C.textMuted }}><div style={{ fontSize: "48px", marginBottom: "12px" }}>🏋️</div><div style={{ fontFamily: "'Manrope', sans-serif", fontSize: "24px" }}>NO TRAINERS FOUND</div></div>
               : filtered.map(t => <TrainerCard key={t.id} trainer={t} onClick={setProfileTrainer} />)}
           </div>
         </>
