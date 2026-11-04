@@ -728,9 +728,30 @@ function StarRating({ rating, size = 12 }) {
   return <span style={{ color: C.accent, fontSize: size }}>{"★".repeat(Math.floor(rating))}<span style={{ color: C.borderLight }}>{"★".repeat(5 - Math.floor(rating))}</span></span>;
 }
 
+function PlatformIcon({ platform }) {
+  if (platform === "instagram") return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="#E1306C" strokeWidth="2.5" />
+      <circle cx="12" cy="12" r="4.2" stroke="#E1306C" strokeWidth="2.5" />
+      <circle cx="17.9" cy="6.4" r="1.3" fill="#E1306C" />
+    </svg>
+  );
+  if (platform === "youtube") return (
+    <svg width="17" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="1" y="4.5" width="22" height="15" rx="5" fill="#FF0033" />
+      <path d="M10 8.3v7.4l6.3-3.7L10 8.3Z" fill="#FFFFFF" />
+    </svg>
+  );
+  if (platform === "tiktok") return (
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#161616" d="M15.6 2H12.6v12.2a3.2 3.2 0 1 1-3.1-3.2V7.8a6.3 6.3 0 1 0 6.1 6.3V8.5c1.7 1.2 3.8 1.8 5.9 1.8V7.1c-3.3 0-5.9-2.2-5.9-5.1Z" />
+    </svg>
+  );
+  return null;
+}
+
 function PlatformBadge({ platform, count }) {
-  const p = PLATFORM_ICONS[platform];
-  return <span style={{ display: "inline-flex", alignItems: "center", gap: "4px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: "20px", padding: "3px 8px", fontSize: "11px", color: C.textSecondary }}><span style={{ color: p.color, fontWeight: 700, fontSize: "10px" }}>{p.label}</span>{count}</span>;
+  return <span aria-label={`${platform}: ${count} followers`} style={{ display: "inline-flex", alignItems: "center", gap: "5px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: "20px", padding: "4px 9px", fontSize: "11px", color: C.textSecondary }}><PlatformIcon platform={platform} />{count}</span>;
 }
 
 function TrainerCard({ trainer, onClick, matchReason }) {
@@ -740,7 +761,7 @@ function TrainerCard({ trainer, onClick, matchReason }) {
       onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = matchReason ? `0 0 20px ${C.accentDim}` : "none"; }}>
       <div style={{ position: "relative", height: "200px", overflow: "hidden", background: C.surface }}>
         <img src={trainer.img} alt={trainer.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => { e.target.style.display = "none"; }} />
-        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, ${C.card} 0%, transparent 55%)` }} />
+        <div style={{ position: "absolute", inset: 0, background: `linear-gradient(to top, rgba(255,255,255,0.70) 0%, transparent 55%)` }} />
         <div style={{ position: "absolute", top: "12px", right: "12px", background: C.accent, color: "#FFFFFF", fontWeight: 800, fontSize: "12px", padding: "3px 10px", borderRadius: "20px" }}>{trainer.price}</div>
         {matchReason && <div style={{ position: "absolute", top: "12px", left: "12px", background: C.accentDim, border: `1px solid ${C.accentBorder}`, color: C.accent, fontSize: "10px", fontWeight: 700, padding: "3px 8px", borderRadius: "20px" }}>✦ MATCHED</div>}
       </div>
