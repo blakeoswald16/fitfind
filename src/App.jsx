@@ -920,6 +920,89 @@ function ProfilePage({ trainer, onBack }) {
   );
 }
 
+// Deterministic MVP matching: no external API or user data transmission.
+function matchCoaches(answers, trainers) {
+  const pick = key => answers[key]?.[0] || "";
+  const goal = pick("goal");
+  const budget = pick("budget");
+  const mode = pick("mode");
+  const style = pick("style");
+  const beginner = pick("experience") === "Complete beginner";
+  const special = answers.special || [];
+
+  const goalNiches = {
+    "Lose weight & burn fat": ["hiit", "cardio", "nutrition"],
+    "Build muscle & get stronger": ["strength", "calisthenics"],
+    "Improve endurance & cardio": ["cardio", "performance"],
+    "Flexibility, mobility & recovery": ["yoga"],
+    "Athletic performance & sport": ["performance", "cardio", "strength"],
+    "Nutrition & healthy eating habits": ["nutrition"],
+    "General wellness & stress relief": ["yoga", "nutrition"],
+  };
+  const styleMap = {
+    "Tough love — push me hard": ["tough love"],
+    "Supportive & encouraging": ["supportive", "accountability"],
+    "Science-based & data-driven": ["data-driven"],
+    "Holistic — mind, body, lifestyle": ["holistic"],
+  };
+  const focusKeywords = {
+    "No equipment / home workouts": ["home", "bodyweight", "no equipment"],
+    "Competition or event prep": ["competition", "meet prep", "race", "athlete"],
+    "Postpartum or injury recovery": ["postpartum", "recovery", "rehab"],
+    "Sport-specific training": ["sport", "athlete", "performance"],
+    "Chronic pain or health conditions": ["chronic pain", "mobility", "corrective"],
+  };
+  const maxBudget = budget.startsWith("Budget-friendly") ? 50 : budget.startsWith("Mid-range") ? 150 : null;
+
+  const ranked = trainers.map(trainer => {
+    let score = 0;
+    const reasons = [];
+    const specialty = (trainer.specialty || "").toLowerCase();
+    const tags = (trainer.tags || []).join(" ").toLowerCase();
+    const relevantNiches = goalNiches[goal] || [];
+    if (relevantNiches.includes(trainer.niche)) {
+      score += 10;
+      reasons.push(`Their ${trainer.specialty.toLowerCase()} specialty aligns with your goal.`);
+    }
+    if ((styleMap[style] || []).includes(trainer.style)) {
+      score += 4;
+      reasons.push(`Their ${trainer.style} coaching approach matches your preference.`);
+    }
+    if (mode === "In-person only") {
+      score += trainer.coachingMode === "both" ? 6 : -12;
+      if (trainer.coachingMode === "both") reasons.push("They offer an in-person coaching option; confirm availability in your area.");
+    } else if (mode === "Fully online" && ["online", "both"].includes(trainer.coachingMode)) {
+      score += 3;
+      reasons.push("They offer online coaching.");
+    }
+    const prices = (trainer.pricing || []).map(tier => Number(String(tier.price).match(/\$([\d,]+)/)?.[1].replace(/,/g, ""))).filter(Number.isFinite);
+    const startingPrice = prices.length ? Math.min(...prices) : null;
+    if (maxBudget !== null && startingPrice !== null) {
+      if (startingPrice <= maxBudget) {
+        score += 5;
+        reasons.push(`Their plans start at $ ${startingPrice}/month, within your budget.`.replace("$ ", "$"));
+      } else score -= Math.min(6, Math.ceil((startingPrice - maxBudget) / 25));
+    }
+    if (beginner && tags.includes("beginner")) {
+      score += 2;
+      reasons.push("Their profile lists beginner-friendly coaching.");
+    }
+    for (const need of special) {
+      if (need === "No special requirements") continue;
+      if ((focusKeywords[need] || []).some(word => specialty.includes(word) || tags.includes(word))) {
+        score += 2;
+      }
+    }
+    if (!reasons.length) reasons.push(`They offer ${trainer.specialty.toLowerCase()} coaching, which may be worth exploring.`);
+    return { trainer, score, reason: reasons.slice(0, 2).join(" ") };
+  }).sort((a, b) => b.score - a.score || a.trainer.id - b.trainer.id);
+  // For in-person-only requests, prioritize available hybrid coaches over online-only profiles.
+  const eligible = mode === "In-person only" && ranked.filter(item => item.trainer.coachingMode === "both").length >= 3
+    ? ranked.filter(item => item.trainer.coachingMode === "both")
+    : ranked;
+  return eligible.slice(0, 3);
+}
+
 function QuizModal({ onClose, onResults }) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -937,28 +1020,19 @@ function QuizModal({ onClose, onResults }) {
     }
   }
 
-  async function handleFinish() {
-    setLoading(true); setError(null);
+  function handleFinish() {
+    setLoading(true);
+    setError(null);
     try {
-      const prompt = `You are a fitness coach matchmaker. Match the user to the best 3 trainers and explain why each fits.
-
-USER ANSWERS:
-${Object.entries(answers).map(([k, v]) => `- ${k}: ${v.join(", ")}`).join("\n")}
-
-TRAINERS:
-${TRAINERS.map(t => `ID:${t.id} | ${t.name} | ${t.specialty} | Price:${t.price} | Mode:${t.coachingMode} | Style:${t.style} | Tags:${t.tags.join(", ")}`).join("\n")}
-
-Return ONLY valid JSON, no markdown:
-{"matches":[{"id":1,"reason":"2-sentence personalized explanation"},{"id":2,"reason":"..."},{"id":3,"reason":"..."}]}`;
-
-      const res = await fetch("/api/match", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }) });
-      const data = await res.json();
-      const text = data.content.map(b => b.text || "").join("").replace(/```json|```/g, "").trim();
-      const parsed = JSON.parse(text);
-      const matches = parsed.matches.map(m => ({ trainer: TRAINERS.find(t => t.id === m.id), reason: m.reason })).filter(m => m.trainer);
-      onResults(matches); onClose();
-    } catch { setError("Something went wrong. Please try again."); }
-    finally { setLoading(false); }
+      const matches = matchCoaches(answers, TRAINERS);
+      if (matches.length < 3) throw new Error("Not enough coach profiles to match.");
+      onResults(matches);
+      onClose();
+    } catch {
+      setError("We couldn't generate your matches. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
